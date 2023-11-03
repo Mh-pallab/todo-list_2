@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'user'])->group(function () {
    Route::resource('/post', PostController::class);
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+   Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+   Route::DELETE('/dashboard/{user}', [AdminController::class, 'destroy'])->name('destroy');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
