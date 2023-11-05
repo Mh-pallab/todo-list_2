@@ -75,4 +75,17 @@ class PostController extends Controller
       $post->delete();
       return to_route('post.index');
    }
+
+   public function update_status(Request $request, $id)
+   {
+      $status = $request->status;
+      $task_find = Post::where('id', $id)->where('user_id', Auth::user()->id)->first();
+      if (isset($task_find)) {
+         $task_find->update([
+            'status' => $status
+         ]);
+      }
+
+      return 'success';
+   }
 }

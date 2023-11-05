@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::middleware(['auth', 'user'])->group(function () {
    Route::resource('/post', PostController::class);
+   Route::post('/task-update-status/{id}', [PostController::class, 'update_status'])->name('task.update_status');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

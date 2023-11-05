@@ -14,17 +14,24 @@
             </div>
         </form>
 
-        <table class="table table-striped mt-5">
+        <table class="table table-striped mt-5 text-center">
             <thead>
                 <th>ID</th>
                 <th>Post</th>
+                <th>Status</th>
                 <th>Action</th>
             </thead>
             <tbody>
                 @foreach ($posts as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->post }}</td>
+                        <td class="task_name">{{ $item->post }}</td>
+                        <td>
+                            <div class="">
+                                <input class="form-check-input check" data-id="{{ $item->id }}" type="checkbox"
+                                    value="{{ $item->status }}" {{ $item->status == 'active' ? '' : 'checked' }}>
+                            </div>
+                        </td>
                         <td>
                             <a href="{{ route('post.edit', $item->id) }}" class="btn btn-success mx-2">Edit</a>
 
@@ -39,6 +46,6 @@
             </tbody>
         </table>
 
-
+        <input type="hidden" id="csrf" value="{{ csrf_token() }}">
     </div>
 @endsection
