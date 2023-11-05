@@ -84,8 +84,7 @@ class PostController extends Controller
          $task_find->update([
             'status' => $status
          ]);
+         return 'success';
       }
-
-      return 'success';
    }
 }

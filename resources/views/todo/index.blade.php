@@ -25,11 +25,15 @@
                 @foreach ($posts as $item)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td class="task_name">{{ $item->post }}</td>
+                        <td class="task_name"
+                            style="text-decoration: {{ $item->status == 'inactive' ? 'line-through' : 'none' }}"
+                            data-id="{{ $item->post }}">
+                            {{ $item->post }}
+                        </td>
                         <td>
                             <div class="">
                                 <input class="form-check-input check" data-id="{{ $item->id }}" type="checkbox"
-                                    value="{{ $item->status }}" {{ $item->status == 'active' ? '' : 'checked' }}>
+                                    {{ $item->status == 'active' ? '' : 'checked' }}>
                             </div>
                         </td>
                         <td>
